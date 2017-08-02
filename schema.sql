@@ -1,4 +1,4 @@
-create table incidents (
+create table if not exists incidents (
   id varchar primary key,
   incident_number int not null,
   created_at timestamptz not null,
@@ -11,7 +11,7 @@ create table incidents (
   trigger_type varchar not null
 );
 
-create table log_entries (
+create table if not exists log_entries (
   id varchar primary key,
   type varchar not null,
   created_at timestamptz not null,
@@ -24,23 +24,29 @@ create table log_entries (
   assigned_user_id varchar
 );
 
-create table services (
+create table if not exists services (
   id varchar primary key,
   name varchar not null,
   status varchar not null,
   type varchar not null
 );
 
-create table escalation_policies (
+create table if not exists escalation_policies (
   id varchar primary key,
   name varchar not null
 );
 
-create table users (
+create table if not exists users (
   id varchar primary key,
   name varchar not null,
   email varchar not null
 );
 
+create table if not exists schedules (
+  id varchar primary key,
+  name varchar not null,
+  description varchar not null
+);
+
 -- Extension tablefunc enables crosstabs.
-create extension tablefunc;
+create extension if not exists tablefunc;

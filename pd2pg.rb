@@ -121,6 +121,14 @@ class PG2PD
     }
   end
 
+  def convert_schedule(s)
+    {
+      id: s["id"],
+      name: s["name"],
+      description: s["description"],
+    }
+  end
+
   # Refresh database state for the given table by fetching all relevant
   # values from the API. Yields each API value to a block that should
   # convert the API value to a DB record for subsequent insertion /
@@ -230,6 +238,7 @@ class PG2PD
     refresh_bulk(:services) { |s| convert_service(s) }
     refresh_bulk(:escalation_policies) { |ep| convert_escalation_policy(ep) }
     refresh_bulk(:users) { |u| convert_user(u) }
+    refresh_bulk(:schedules) { |s| convert_schedule(s) }
 
     refresh_incremental(:incidents) { |i| convert_incident(i) }
     refresh_incremental(:log_entries, {"include[]" => "incident"}) { |le| convert_log_entry(le) }
