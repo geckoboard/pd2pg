@@ -20,7 +20,9 @@ class PG2PD
   INCREMENTAL_WINDOW = 60*60*24
 
   # Earliest time PagerDuty data could be available.
-  PAGERDUTY_EPOCH = Time.parse("2009-01-01T00:00Z")
+  # You can override this with environment variables to reduce the initial
+  # import time against an empty database.
+  PAGERDUTY_EPOCH = Time.parse(ENV.fetch("PAGERDUTY_EPOCH", "2009-01-01T00:00Z"))
 
   # Reads required config from environment variables.
   def env!(k)
